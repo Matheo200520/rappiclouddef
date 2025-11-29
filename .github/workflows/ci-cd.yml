@@ -2,9 +2,9 @@ name: CI-CD RappiCloud
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
 
@@ -30,9 +30,9 @@ jobs:
             cd ..
           done
 
-      - name: 🔍 Analizar código con ESLint (opcional)
+      - name: 🔍 Análisis ESLint (simulado)
         run: |
-          echo "Simulación de análisis con ESLint"
+          echo "Ejecución simulada de ESLint"
 
   docker-build:
     name: 🐳 Build Docker Images
@@ -50,6 +50,7 @@ jobs:
         run: |
           for svc in usuarios restaurantes pedidos pagos repartidores notificaciones api-gateway
           do
+            echo "Construyendo imagen para $svc"
             docker build -t rappicloud-$svc:latest $svc
           done
 
@@ -62,14 +63,8 @@ jobs:
       - name: 📥 Descargar código
         uses: actions/checkout@v3
 
-      - name: 📥 Instalar K6
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ca-certificates gnupg
-          curl -fsSL https://dl.k6.io/deb/key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/k6.gpg
-          echo "deb [signed-by=/usr/share/keyrings/k6.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
-          sudo apt-get update
-          sudo apt-get install -y k6
+      - name: 📥 Instalar K6 (acción oficial)
+        uses: grafana/k6-action@v0.2.0
 
       - name: 🧪 Ejecutar pruebas de carga
         run: |
@@ -84,4 +79,4 @@ jobs:
       - name: 🚀 Lanzar despliegue (simulado)
         run: |
           echo "Despliegue simulado completado para RappiCloud"
-          echo "Listo para producción (simulado)"
+          echo "Todo correcto, listo para producción (simulado)"
