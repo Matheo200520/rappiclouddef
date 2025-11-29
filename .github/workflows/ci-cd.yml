@@ -54,7 +54,7 @@ jobs:
             docker build -t rappicloud-$svc:latest $svc
           done
 
-  load-testing:
+  load-testing:   # 👈 CORREGIDO: ahora está al nivel correcto
     name: ⚡ Pruebas de carga (K6)
     runs-on: ubuntu-latest
     needs: docker-build
