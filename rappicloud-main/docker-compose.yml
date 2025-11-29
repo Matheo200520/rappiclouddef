@@ -1,0 +1,74 @@
+version: "3.8"
+
+services:
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "8000:8000"
+    depends_on:
+      - usuarios
+      - restaurantes
+      - pedidos
+      - pagos
+      - repartidores
+      - notificaciones
+
+  usuarios:
+    build: ./usuarios
+    container_name: usuarios
+    ports:
+      - "3001:3001"
+
+  restaurantes:
+    build: ./restaurantes
+    container_name: restaurantes
+    ports:
+      - "3002:3002"
+
+  pedidos:
+    build: ./pedidos
+    container_name: pedidos
+    ports:
+      - "3003:3003"
+
+  pagos:
+    build: ./pagos
+    container_name: pagos
+    ports:
+      - "3004:3004"
+
+  repartidores:
+    build: ./repartidores
+    container_name: repartidores
+    ports:
+      - "3005:3005"
+
+  notificaciones:
+    build: ./notificaciones
+    container_name: notificaciones
+    ports:
+      - "3006:3006"
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - usuarios
+      - restaurantes
+      - pedidos
+      - pagos
+      - repartidores
+      - notificaciones
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus

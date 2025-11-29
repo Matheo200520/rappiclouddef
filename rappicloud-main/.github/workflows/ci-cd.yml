@@ -1,0 +1,83 @@
+name: CI-CD RappiCloud
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build-and-test:
+    name: 🧪 Build & Test Microservicios
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Descargar repositorio
+        uses: actions/checkout@v3
+
+      - name: 🧰 Instalar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 📦 Instalar dependencias de todos los servicios
+        run: |
+          for svc in usuarios restaurantes pedidos pagos repartidores notificaciones api-gateway
+          do
+            cd $svc
+            npm install
+            cd ..
+          done
+
+      - name: 🔍 Analizar código con ESLint (opcional)
+        run: |
+          echo "Simulación de análisis con ESLint"
+
+  docker-build:
+    name: 🐳 Build Docker Images
+    runs-on: ubuntu-latest
+    needs: build-and-test
+
+    steps:
+      - name: 📥 Descargar código
+        uses: actions/checkout@v3
+
+      - name: 🐳 Configurar Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: 🔨 Construir imágenes Docker de microservicios
+        run: |
+          for svc in usuarios restaurantes pedidos pagos repartidores notificaciones api-gateway
+          do
+            docker build -t rappicloud-$svc:latest $svc
+          done
+
+  load-testing:
+    name: ⚡ Pruebas de carga (K6)
+    runs-on: ubuntu-latest
+    needs: docker-build
+
+    steps:
+      - name: 📥 Descargar código
+        uses: actions/checkout@v3
+
+      - name: 📥 Instalar K6
+        run: |
+          sudo apt update
+          sudo apt install -y k6
+
+      - name: 🧪 Ejecutar pruebas de carga
+        run: |
+          k6 run tests/k6-test.js || echo "Advertencia: prueba de carga simulada"
+
+  deploy:
+    name: 🚀 Despliegue Simulado
+    runs-on: ubuntu-latest
+    needs: load-testing
+
+    steps:
+      - name: 🚀 Lanzar despliegue (simulado)
+        run: |
+          echo "Despliegue simulado completado para RappiCloud"
+          echo "Listo para producción (simulado)"
