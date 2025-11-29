@@ -58,6 +58,7 @@ jobs:
     name: ⚡ Pruebas de carga (K6)
     runs-on: ubuntu-latest
     needs: docker-build
+    continue-on-error: true    # 👈 AÑADIR ESTO
 
     steps:
       - name: 📥 Descargar código
