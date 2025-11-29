@@ -64,8 +64,12 @@ jobs:
 
       - name: 📥 Instalar K6
         run: |
-          sudo apt update
-          sudo apt install -y k6
+          sudo apt-get update
+          sudo apt-get install -y ca-certificates gnupg
+          curl -fsSL https://dl.k6.io/deb/key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/k6.gpg
+          echo "deb [signed-by=/usr/share/keyrings/k6.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install -y k6
 
       - name: 🧪 Ejecutar pruebas de carga
         run: |
