@@ -54,7 +54,7 @@ jobs:
             docker build -t rappicloud-$svc:latest $svc
           done
 
-  load-testing:   # 👈 CORREGIDO: ahora está al nivel correcto
+  load-testing:
     name: ⚡ Pruebas de carga (K6)
     runs-on: ubuntu-latest
     needs: docker-build
@@ -63,12 +63,10 @@ jobs:
       - name: 📥 Descargar código
         uses: actions/checkout@v3
 
-      - name: 📥 Instalar K6 (acción oficial)
+      - name: 🧪 Ejecutar prueba de carga con K6
         uses: grafana/k6-action@v0.2.0
-
-      - name: 🧪 Ejecutar pruebas de carga
-        run: |
-          k6 run tests/k6-test.js || echo "Advertencia: prueba de carga simulada"
+        with:
+          filename: tests/k6-test.js
 
   deploy:
     name: 🚀 Despliegue Simulado
