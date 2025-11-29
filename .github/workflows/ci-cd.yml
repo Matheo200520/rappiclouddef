@@ -66,7 +66,7 @@ jobs:
       - name: 🧪 Ejecutar prueba de carga con K6
         uses: grafana/k6-action@v0.2.0
         with:
-          filename: tests/k6-test.js
+          filename: tests/k6-stress.js  # 👈 AQUÍ EL CAMBIO CORRECTO
 
   deploy:
     name: 🚀 Despliegue Simulado
