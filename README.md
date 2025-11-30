@@ -4,9 +4,9 @@
 
 
 - Matheo 1 – Arquitectura / Backend  
-- Integrante 2 – DevOps / CI/CD  
+- Jorge 2 – DevOps / CI/CD  
 - Cristian 3 – Monitoreo / Pruebas  
-- Integrante 4 – Documentación / Video  
+- Santiago 4 – Documentación / Video  
 
 
 ## 2. Descripción general del sistema
