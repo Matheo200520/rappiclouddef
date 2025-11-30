@@ -3,10 +3,10 @@
 ## 1. Integrantes y roles
 
 
-- Matheo 1 – Arquitectura / Backend  
-- Jorge 2 – DevOps / CI/CD  
-- Cristian 3 – Monitoreo / Pruebas  
-- Santiago 4 – Documentación / Video  
+- Matheo Lopez Caicedo 1 – Arquitectura / Backend  
+- Jorge Ivan Quijano Landazuri 2 – DevOps / CI/CD  
+- Cristian Fernando Quiñones Cabezas 3 – Monitoreo / Pruebas  
+- Deivi Santiago Quezada Lerma 4 – Documentación / Video  
 
 
 ## 2. Descripción general del sistema
