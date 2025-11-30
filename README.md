@@ -138,7 +138,7 @@ docker-compose up -d --scale pedidos=3
 
   - Todos los servicios principales (usuarios, notificaciones, repartidores, restaurantes, pagos, api-gateway, prometheus, grafana) se mantuvieron corriendo.
 
- ## 3. Prueba después del escalado
+ ## 6.3. Prueba después del escalado
 
   - Resultado con k6:
     - Latencia p95 bajó a ~1.8 ms para el endpoint de usuarios (muy rápida tras el escalado).
