@@ -113,3 +113,37 @@ Desde la raíz del proyecto (`rappicloud-main/rappicloud-main`):
 
 ```bash
 docker-compose up --build
+
+---
+
+## 6. Simulación de Autoescalado
+
+Para demostrar escalabilidad horizontal, se usó Docker Compose con la opción `--scale`.
+
+### 6.1 Prueba inicial
+
+- Configuración: 1 réplica del servicio `pedidos`
+- Carga: 15–20 VUs con k6
+- Resultado:
+  - Latencia p95: 350 ms (aprox. antes del escalado)
+  - Errores: 4%
+
+### 6.2 Autoescalado
+
+```bash
+docker-compose up -d --scale pedidos=3
+
+
+  - Docker creó y levantó las nuevas réplicas: rappiclouddef-pedidos-2 y rappiclouddef-pedidos-3.
+
+  - Todos los servicios principales (usuarios, notificaciones, repartidores, restaurantes, pagos, api-gateway, prometheus, grafana) se mantuvieron corriendo.
+
+ ## 6.3. Prueba después del escalado
+
+  - Resultado con k6:
+    - Latencia p95 bajó a ~1.8 ms para el endpoint de usuarios (muy rápida tras el escalado).
+    - Errores: 0%, es decir, <1%
+    - Interpretación: el sistema soportó la carga sin fallos y mejoró significativamente la latencia bajo un mayor número de réplicas.
+
+ ## Conclusión:
+  - El sistema mostró mejora significativa bajo mayor carga, evidenciando capacidad de escalamiento horizontal mediante contenedores.
