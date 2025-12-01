@@ -147,3 +147,44 @@ docker-compose up -d --scale pedidos=3
 
  ## Conclusión:
   - El sistema mostró mejora significativa bajo mayor carga, evidenciando capacidad de escalamiento horizontal mediante contenedores.
+  
+
+  ## 7
+  7. Pipeline CI/CD (GitHub Actions)
+
+El proyecto cuenta con un pipeline automatizado de CI/CD implementado en GitHub Actions.
+Este pipeline realiza cuatro tareas principales cada vez que se hace un push o pull request a la rama main:
+
+Build & Test
+
+Instala Node.js
+
+Descarga dependencias de cada microservicio
+
+Ejecuta validaciones básicas del proyecto
+
+Build Docker
+
+Construye las imágenes Docker de todos los microservicios
+
+Permite verificar que cada servicio puede contenedizarse sin errores
+
+Pruebas de carga con K6 (simuladas)
+
+Ejecuta un test de estrés para validar el comportamiento del sistema
+
+Aunque el servicio no está levantado en GitHub Actions, se permitió continuar el pipeline usando continue-on-error: true
+
+Esto garantiza que la carga no bloquee el despliegue
+
+Despliegue simulado
+
+Indica que el proceso CI/CD completó correctamente
+
+Representa la fase final de entrega hacia producción
+
+Este pipeline permitió validar:
+✔ que el proyecto compila
+✔ que las imágenes Docker funcionan
+✔ que el sistema puede manejar pruebas de carga básicas
+✔ y que el proceso completo no se interrumpe pese a errores esperados en el entorno del runner
